@@ -4,6 +4,7 @@ import Login from './authControll/Login.jsx'
 
 const App = () => {
   return (
+<<<<<<< HEAD
     <BrowserRouter>
       <Routes>
         <Route path='/login' element={<Login/>}></Route>
@@ -12,6 +13,11 @@ const App = () => {
          </Route>
       </Routes>
     </BrowserRouter>
+=======
+    <div>
+     
+    </div>
+>>>>>>> 9444b1086a398ce7693029992b108f4caaeebac0
   )
 }
 
