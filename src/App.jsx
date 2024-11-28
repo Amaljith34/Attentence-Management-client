@@ -1,10 +1,17 @@
 import React from 'react'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import Login from './authControll/Login.jsx'
 
 const App = () => {
   return (
-    <div>
-      <h1 className='bg-red-500 text-blue-500  ml-48'>hellooo</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/login' element={<Login/>}></Route>
+        <Route path='/' element={<Navigate to='/admin-dashboard'/>}>
+          
+         </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
