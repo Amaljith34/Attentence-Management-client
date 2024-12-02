@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import {  BrowserRouter , Route, Routes } from 'react-router-dom'
 import Login from './authControll/Login.jsx'
 import EmployeeDashBoard from './User/Pages/EmployeeDashBoard.jsx'
 import AdminDashboard from './Admin/components/Admindashboard/AdminDashboard.jsx'
@@ -12,8 +12,8 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/registration' element={<Registration/>}></Route>
-        <Route path='/' element={<Login/>}></Route>
+        <Route  path='/registration' element={<Registration/>}></Route>
+        <Route exact path='/' element={<Login/>}></Route>
 
         <Route path='/homepage' element={<EmployeeDashBoard/>}></Route>
 
