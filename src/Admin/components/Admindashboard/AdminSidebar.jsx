@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
 import { FaBuilding, FaCalendarAlt, FaCogs, FaTachometerAlt } from 'react-icons/fa'
 import { FaMoneyBill1Wave, FaUsers } from 'react-icons/fa6'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 const AdminSidebar = () => {
+  const navigate=useNavigate()
   const [isActive,setIsActive]=useState(true)
   const handclick=()=>{
     setIsActive(false)
+    if(isActive===true){
+      navigate('/admin-dashboard')
+    }
   }
   return (
     <div className='bg-gray-800 text-white  h-screen fixed left-0 bottom-0 space-y-2 w-64'>
