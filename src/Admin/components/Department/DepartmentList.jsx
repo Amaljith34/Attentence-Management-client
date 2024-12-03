@@ -6,11 +6,14 @@ const DepartmentList = () => {
   const [department, setDepartment] = useState([]);
   const [error, setError] = useState(null);
   const [isModalOpen,setIsModalOpen]=useState(false)
+  const [isdelete,setIsDelete]=useState(false)
+  const [deleted,setDeleted]=useState()
   const [edited,setEdited]=useState({
     _id:'',
     dept_name:'',
     description :''
 })
+console.log(edited);
 
   useEffect(() => {
     const fetchDepartment = async () => {
@@ -25,7 +28,7 @@ const DepartmentList = () => {
     };
 
     fetchDepartment();
-  }, []);
+  },[]);
 
 
   const handEdit=(dept)=>{
@@ -35,13 +38,14 @@ const DepartmentList = () => {
 
   const handchange=(e)=>{
     const {name,value}=e.target
-    setEdited({...edited,[name]:value})
+    setEdited((prev) => ({ ...prev, [name]: value }));
     }
 
   const handlSave=async()=>{
    try {
-   const response= await axios.put(`http://localhost:3000/api/admin/department/${edited._id}`)
+     await axios.put(`http://localhost:3000/api/admin/department/${edited._id}`,edited)
     setDepartment((prev)=>prev.map((dept)=>dept._id===edited._id ? {...dept,...edited}:dept))
+    alert('success')
     setIsModalOpen(false); 
 
    } catch (error) {
@@ -49,6 +53,22 @@ const DepartmentList = () => {
     setError('Failed to load department data.');
    }
   }
+
+  const handDelete=async(id)=>{
+     setDeleted(id)
+    setIsDelete(true)
+  }
+  const handCancal=async()=>{
+    setIsDelete(false)
+  }
+  const handClick=async()=>{
+    const id=deleted
+
+    await axios.delete(`http://localhost:3000/api/admin/department/${id}`)
+    alert("deleted success")
+    setIsDelete(false)
+  }
+
   return (
     <div className="p-5">
       <div className="text-center">
@@ -78,6 +98,7 @@ const DepartmentList = () => {
                 <th className="border-2 border-gray-400 px-4 py-2">Department Name</th>
                 <th className="border-2 border-gray-400 px-4 py-2">Discription</th>
                 <th className="border-2 border-gray-400 px-4 py-2">Action</th>
+                <th className="border-2 border-gray-400 px-4 py-2">Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -87,7 +108,8 @@ const DepartmentList = () => {
                     <td className="border-2 border-gray-400 px-4 py-2 text-center">{index+1} </td>
                     <td className="border-2 border-gray-400 px-4 py-2 text-center">{dept.dept_name}</td>
                     <td className="border-2 border-gray-400 px-4 py-2 text-center">{dept.description}</td>
-                    <td className="border-2 border-gray-400 px-4 py-2 text-center"><button className='bg-teal-400 p-3 rounded-md' onClick={()=>handEdit(dept)} onChange={handchange}>Edit</button></td>
+                    <td className="border-2 border-gray-400 px-4 py-2 text-center"><button className='bg-teal-500 p-3 rounded-md' onClick={()=>handEdit(dept)} >Edit</button></td>
+                    <td className="border-2 border-gray-400 px-4 py-2 text-center"><button className='bg-teal-500 p-3 rounded-md 'onClick={()=>handDelete(dept._id)} >Delete</button></td>
                   </tr>
                 ))
               ) : (
@@ -104,6 +126,20 @@ const DepartmentList = () => {
           </table>
         )}
       </div>
+      {isdelete && (
+        <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center'>
+          <div className='bg-white p-6 rounded shadow-md w-1/4 flex text-center'>
+              <h1 className='font-bold'>Are you sure delete :</h1>
+              
+             <div className='flex left-0 ml-20'>
+
+             <button className='bg-red-500 p-2 rounded-md' onClick={handCancal}>No</button>
+              <button className='bg-green-500 p-2 ml-5 rounded-md' onClick={handClick}>YES</button>
+             </div>
+              
+          </div>
+        </div>
+      )}
       {isModalOpen &&(
        <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center'>
         <div className='bg-white p-6 rounded shadow-md w-1/3'>
