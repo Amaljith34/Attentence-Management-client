@@ -8,9 +8,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const {login}=useAuth()
   const navigate=useNavigate()
-
-
-
   const handsubmit = async (e) => {
     e.preventDefault();
     try {
@@ -26,7 +23,7 @@ const Login = () => {
             navigate('/admin-dashboard')
           }
           else{
-            navigate('/homepage')
+            navigate('/employee-dashboard')
           }
         }
         else{
@@ -43,6 +40,8 @@ const Login = () => {
         setPassword('')
       }
       else if(error.response && error.response.status===401){
+        setPassword('')
+        setEmail('')
         alert (error.response.data.message)
       }
       // console.log(error.response.status);
