@@ -7,17 +7,26 @@
 //   plugins: [],
 // }
 
-module.exports = {
-  content: [
-    './index.html',
-    './src/**/*.{js,jsx,ts,tsx}',
-  ],
+// module.exports = {
+//   content: [
+//     './index.html',
+//     './src/**/*.{js,jsx,ts,tsx}',
+//   ],
+//   theme: {
+//     extend: {
+//       fontFamily:{
+//         "Sevillan":["Sevillana","sans-serif"]
+//       }
+//     },
+//   },
+//   plugins: [],
+// };
+
+
+export default {
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    extend: {
-      fontFamily:{
-        "Sevillan":["Sevillana","sans-serif"]
-      }
-    },
+      extend: {},
   },
   plugins: [],
 };
