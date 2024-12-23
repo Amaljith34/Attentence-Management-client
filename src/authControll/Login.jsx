@@ -23,20 +23,24 @@ const Login = () => {
           localStorage.setItem("token",response.data.token)
           localStorage.setItem("id",response.data.data._id)
           if(response.data.data.role==="admin"){
-            navigate('/admin-dashboard')
+            setTimeout(() => {
+              navigate('/admin-dashboard')
+            }, 2000);
           }
           else{
-            navigate('/employee-dashboard')
+            setTimeout(() => {
+              navigate('/employee-dashboard')
+            }, 2000);
           }
         }
         else{
-          navigate('/registration')
+          navigate('/')
         }
         
     } catch (error) {
       if(error.response && error.response.status===404){
         toast.error(error.response.data.message)
-        navigate('/registration')
+        navigate('/')
       }
       else if(error.response && error.response.status===400){
         // toast.error(error.response.data.message)

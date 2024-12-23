@@ -20,6 +20,7 @@ import EmployeeProfile from './Employee/Components/EmployeeProfile/EmployeeProfi
 import EmployeeSettings from './Employee/Components/EmployeeSettings/EmployeeSettings.jsx'
 import EmployeeLeve from './Employee/Components/EmployeeLeave/EmployeeLeve.jsx'
 import { ToastContainer } from 'react-toastify';
+import LeaveRequest from './Admin/components/Leave/LeaveRequest.jsx';
 // import AdminChat from './Admin/components/AdminChat/AdminChat.jsx';
 // import EmployeeChat from './Employee/Components/EmployeeChat/employeeChat.jsx';
 
@@ -51,6 +52,7 @@ const App = () => {
         <Route path='/admin-dashboard/add-employee' element={<AddEmployee/>}/>
         <Route path='/admin-dashboard/salary' element={<SalaryList/>}/>
         <Route path='/admin-dashboard/leave' element={<LeaveList/>}/>
+        <Route path='/admin-dashboard/leave-request' element={<LeaveRequest/>}/>
         <Route path='/admin-dashboard/setting' element={<Settings/>}/>
         {/* <Route path='/admin-dashboard/chat' element={<AdminChat />} /> */}
 

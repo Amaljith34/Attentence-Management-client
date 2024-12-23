@@ -62,7 +62,9 @@ const EmployeeList = () => {
 
     }
   };
-
+  const handleMessage=()=>{
+     
+  }
 
   const filteredEmployees = employees.filter(
     (emp) =>
@@ -70,9 +72,10 @@ const EmployeeList = () => {
       emp.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
       emp.department.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  
   return (
     <div className="p-5">
-      <div><img src="https://static.vecteezy.com/system/resources/previews/000/441/015/original/notification-vector-icon.jpg" alt="" /></div>
+      <div className="flex justify-end mr-5"><img src="https://static.vecteezy.com/system/resources/previews/000/441/015/original/notification-vector-icon.jpg" alt="" className="w-10 " onClick={handleMessage} /></div>
       <div className="text-center">
         <h3 className="text-2xl font-bold">Employees</h3>
       </div>

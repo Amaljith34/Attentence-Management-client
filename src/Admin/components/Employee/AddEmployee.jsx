@@ -43,16 +43,18 @@ console.log(details);
       const amound=response.data.data.salary
       const addSalary=await axios.post("https://attentence-management-server.onrender.com/api/admin/salary",{employeeId,amound})
       toast.success(response.data.message, {style: { color: 'black', fontWeight: 'bold' }});
-
-      navigate('/admin-dashboard/employee')
+      setTimeout(() => {
+        navigate('/admin-dashboard/employee')
+      }, 2000);
       // console.log('success');
       
     } catch (error) {
 
       if(error.response.status===400){
         toast.error(error.response.data.message, {style: { color: 'red', fontWeight: 'bold' }});
-
-        navigate('/admin-dashboard/employee')
+       setTimeout(() => {
+        navigate('/admin-dashboard/employee')  
+       }, 2000);
       }
       
     }

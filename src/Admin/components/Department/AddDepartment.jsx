@@ -21,12 +21,16 @@ const AddDepartment = () => {
             const response=await axios.post('https://attentence-management-server.onrender.com/api/admin/department',department)
             if(response.data.success){
                 toast.success("department added successfully", {style: { color: 'black', fontWeight: 'bold' }});
-                navigate('/admin-dashboard/department')
+                setTimeout(() => {
+                    navigate('/admin-dashboard/department') 
+                }, 2000);
             }  
         } catch (error) {
             if(error.response && !error.response.data.success){
                 toast.error(error.response.data.message, {style: { color: 'red', fontWeight: 'bold' }});
-                navigate('/admin-dashboard/department')
+                setTimeout(() => {
+                    navigate('/admin-dashboard/department')    
+                }, 2000);
               }
 
               else{
