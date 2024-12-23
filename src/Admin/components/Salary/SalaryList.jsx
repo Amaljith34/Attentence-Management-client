@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const SalaryList = () => {
   const [salaries, setSalaries] = useState([]);
@@ -12,7 +13,7 @@ const SalaryList = () => {
   useEffect(() => {
     const fetchSalaries = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/admin/salary");
+        const response = await axios.get("https://attentence-management-server.onrender.com/api/admin/salary");
         if (response.status === 200) {
           setSalaries(response.data.data);
         }
@@ -36,7 +37,7 @@ console.log(editedSalary);
   const handleSave = async () => {
     try {
       await axios.put(
-        `http://localhost:3000/api/admin/salary/${editedSalary._id}`,
+        `https://attentence-management-server.onrender.com/api/admin/salary/${editedSalary._id}`,
         editedSalary
       );
       setSalaries((prev) =>
@@ -44,7 +45,9 @@ console.log(editedSalary);
           item.employeeId === editedSalary.employeeId ? { ...item, ...editedSalary } : item
         )
       );
-      alert("Salary updated successfully");
+
+      toast.success("Salary updated successfully", {style: { color: 'black', fontWeight: 'bold' }});
+
       setIsEdit(false);
     } catch (error) {
       console.error("Error updating salary:", error);

@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const EmployeeProfile = () => {
   const [employee, setEmployee] = useState({});
@@ -15,7 +16,7 @@ const EmployeeProfile = () => {
     const fetchDetails = async () => {
       try {
         const employeeDetails = await axios.get(
-          `http://localhost:3000/api/admin/employee/${id}`
+          `https://attentence-management-server.onrender.com/api/admin/employee/${id}`
         );
         setEmployee(employeeDetails.data.data);
         setFormData({
@@ -48,12 +49,13 @@ const EmployeeProfile = () => {
     e.preventDefault();
     try {
       const updatedData = await axios.patch(
-        `http://localhost:3000/api/admin/employee/${id}`,
-        formData // Send the form data to update
+        `https://attentence-management-server.onrender.com/api/admin/employee/${id}`,
+        formData 
       );
-      alert(updatedData.data.message); // Show success message
-      setIsModal(false); // Close the modal after saving changes
-      setEmployee(updatedData.data.data); // Update the employee details
+      toast.success(updatedData.data.message, {style: { color: 'black', fontWeight: 'bold' }});
+
+      setIsModal(false); 
+      setEmployee(updatedData.data.data); 
     } catch (error) {
       console.error("Error updating employee:", error);
     }

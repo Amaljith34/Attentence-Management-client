@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const Registration = () => {
     const navigate=useNavigate()
@@ -10,17 +11,15 @@ const Registration = () => {
     const handclick=async(e)=>{
       e.preventDefault();
         try {
-            const response=await axios.post("http://localhost:3000/api/registration",{email,password,name})
+            const response=await axios.post("https://attentence-management-server.onrender.com/api/registration",{email,password,name})
             if(response.status===201){
-              console.log('sucessfully');
-              alert('registration successfully')
+              toast.success('registration successfully', {style: { color: 'red', fontWeight: 'bold' }});
               navigate('/login')
             }
             
         } catch (error) {
             if(error.response && error.response.status===400){
-              // console.log(`error ${error.response.data.message} `);
-              alert(error.response.data.message)
+              toast.error(error.response.data.message, {style: { color: 'red', fontWeight: 'bold' }});
               navigate('/login')
             }
             else{

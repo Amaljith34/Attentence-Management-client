@@ -38,6 +38,10 @@ const AdminSidebar = () => {
           <FaMoneyBill1Wave/>
           <span>Salary</span>
         </NavLink>
+        <NavLink to={'/admin-dashboard/chat'} className="flex items-center space-x-4  py-2.5 px-4 rounded focus:bg-teal-500" onClick={handclick}>
+          <FaMoneyBill1Wave/>
+          <span>Chat</span>
+        </NavLink>
         <NavLink to={'/admin-dashboard/setting'} className="flex items-center space-x-4  py-2.5 px-4 rounded focus:bg-teal-500" onClick={handclick}>
           <FaCogs/>
           <span>Setting</span>

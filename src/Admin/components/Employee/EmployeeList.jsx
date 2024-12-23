@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
@@ -17,7 +18,7 @@ const EmployeeList = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/admin/employee?page=${page}&limit=${itemsPerPage}`
+        `https://attentence-management-server.onrender.com/api/admin/employee?page=${page}&limit=${itemsPerPage}`
       );
       setEmployees(response.data.data);
       setTotalPages(response.data.pages);
@@ -39,8 +40,10 @@ const EmployeeList = () => {
   const handleDelete = async (id, name) => {
     if (window.confirm(`Are you sure you want to delete ${name}?`)) {
       try {
-        await axios.delete(`http://localhost:3000/api/admin/employee/${id}`);
+        await axios.delete(`https://attentence-management-server.onrender.com/api/admin/employee/${id}`);
         setEmployees((prev) => prev.filter((emp) => emp._id !== id));
+        toast.success("Delete success", {style: { color: 'black', fontWeight: 'bold' }});
+
       } catch (error) {
         console.error("Error deleting employee:", error);
       }
@@ -50,11 +53,13 @@ const EmployeeList = () => {
 
   const handleBlock = async (emp) => {
     try {
-      const response = await axios.patch(`http://localhost:3000/api/admin/employee/${emp._id}`);
-      alert(response.data.message || "Employee status updated successfully.");
+      const response = await axios.patch(`https://attentence-management-server.onrender.com/api/admin/employee/block/${emp._id}`);
+      toast.success(response.data.message || "Employee status updated successfully." , {style: { color: 'black', fontWeight: 'bold' }});
+
     } catch (error) {
       console.error("Error blocking/unblocking employee:", error);
-      alert("An error occurred while updating the employee status.");
+      toast.error("An error occurred while updating the employee status.", {style: { color: 'red', fontWeight: 'bold' }});
+
     }
   };
 
@@ -67,6 +72,7 @@ const EmployeeList = () => {
   );
   return (
     <div className="p-5">
+      <div><img src="https://static.vecteezy.com/system/resources/previews/000/441/015/original/notification-vector-icon.jpg" alt="" /></div>
       <div className="text-center">
         <h3 className="text-2xl font-bold">Employees</h3>
       </div>

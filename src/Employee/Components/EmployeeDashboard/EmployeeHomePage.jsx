@@ -14,7 +14,7 @@ console.log(id);
   useEffect(()=>{
      const Totals=async()=>{
       try {
-         const employeeDetails=await axios.get(`http://localhost:3000/api/admin/employee/${id}`)
+         const employeeDetails=await axios.get(`https://attentence-management-server.onrender.com/api/admin/employee/${id}`)
          setDetails(employeeDetails.data.data);
          
        } catch (error) {

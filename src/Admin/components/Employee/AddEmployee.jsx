@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const AddEmployee = () => {
   const navigate=useNavigate()
@@ -18,7 +19,7 @@ const AddEmployee = () => {
   useEffect(()=>{
      const fetchDepartment=async()=>{
       try {
-        const response=await axios.get('http://localhost:3000/api/admin/departments')
+        const response=await axios.get('https://attentence-management-server.onrender.com/api/admin/departments')
         setDepartment(response.data.data)
       } catch (error) {
         console.log(error); 
@@ -36,28 +37,26 @@ console.log(details);
     e.preventDefault()
     try {
       console.log('hello');
-      const response=await axios.post("http://localhost:3000/api/admin/employee",details)
+      const response=await axios.post("https://attentence-management-server.onrender.com/api/admin/employee",details)
       console.log(response.data.data._id);
       const employeeId=response.data.data._id
       const amound=response.data.data.salary
-      const addSalary=await axios.post("http://localhost:3000/api/admin/salary",{employeeId,amound})
-      console.log(addSalary);
-      
-      alert(response.data.message)
+      const addSalary=await axios.post("https://attentence-management-server.onrender.com/api/admin/salary",{employeeId,amound})
+      toast.success(response.data.message, {style: { color: 'black', fontWeight: 'bold' }});
+
       navigate('/admin-dashboard/employee')
       // console.log('success');
       
     } catch (error) {
 
       if(error.response.status===400){
-        alert(error.response.data.message)
+        toast.error(error.response.data.message, {style: { color: 'red', fontWeight: 'bold' }});
+
         navigate('/admin-dashboard/employee')
       }
       
     }
   }
-// console.log(department);
-console.log(details.department);
 
     
   return (

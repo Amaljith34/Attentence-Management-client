@@ -10,9 +10,9 @@ const AdminHomepage = () => {
   useEffect(()=>{
      const Totals=async()=>{
       try {
-         const employee=await axios.get("http://localhost:3000/api/admin/dashboard/employee")
+         const employee=await axios.get("https://attentence-management-server.onrender.com/api/admin/dashboard/employee")
          setTotalEmployee(employee.data.data);
-         const department=await axios.get("http://localhost:3000/api/admin/dashboard/department")
+         const department=await axios.get("https://attentence-management-server.onrender.com/api/admin/dashboard/department")
          setTotalDdepartment(department.data.data)
        } catch (error) {
         console.log(error);

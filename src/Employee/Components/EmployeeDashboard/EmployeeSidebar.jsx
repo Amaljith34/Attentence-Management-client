@@ -34,6 +34,10 @@ const EmployeeSidebar = () => {
           <FaCalendarAlt/>
           <span>Salary</span>
         </NavLink>
+        <NavLink to={'/employee-dashboard/chat'} className="flex items-center space-x-4  py-2.5 px-4 rounded focus:bg-teal-500" onClick={handclick}>
+          <FaCalendarAlt/>
+          <span>Chat</span>
+        </NavLink>
         <NavLink to={'/employee-dashboard/settings'} className="flex items-center space-x-4  py-2.5 px-4 rounded focus:bg-teal-500" onClick={handclick}>
           <FaCogs/>
           <span>Setting</span>

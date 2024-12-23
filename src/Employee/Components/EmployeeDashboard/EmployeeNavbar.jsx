@@ -6,7 +6,7 @@ const EmployeeNavbar = () => {
   const id=localStorage.getItem("id")
   useEffect(()=>{
     const details= async()=>{
-    const employeeDetails=await axios.get(`http://localhost:3000/api/admin/employee/${id}`)
+    const employeeDetails=await axios.get(`https://attentence-management-server.onrender.com/api/admin/employee/${id}`)
     setEmployee(employeeDetails.data.data);
     }
     details()

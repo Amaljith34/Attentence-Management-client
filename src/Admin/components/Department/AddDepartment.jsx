@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const AddDepartment = () => {
     const navigate=useNavigate()
@@ -17,14 +18,14 @@ const AddDepartment = () => {
     const handleSubmit=async(e)=>{
         e.preventDefault()
         try {
-            const response=await axios.post('http://localhost:3000/api/admin/department',department)
+            const response=await axios.post('https://attentence-management-server.onrender.com/api/admin/department',department)
             if(response.data.success){
-                alert("department added successfully")
+                toast.success("department added successfully", {style: { color: 'black', fontWeight: 'bold' }});
                 navigate('/admin-dashboard/department')
             }  
         } catch (error) {
             if(error.response && !error.response.data.success){
-                alert(error.response.data.message)
+                toast.error(error.response.data.message, {style: { color: 'red', fontWeight: 'bold' }});
                 navigate('/admin-dashboard/department')
               }
 

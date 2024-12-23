@@ -1,4 +1,6 @@
 import React from 'react'
+import 'react-toastify/dist/ReactToastify.css';
+
 import {  BrowserRouter , Route, Routes } from 'react-router-dom'
 import Login from './authControll/Login.jsx'
 import AdminDashboard from './Admin/components/Admindashboard/AdminDashboard.jsx'
@@ -17,10 +19,14 @@ import EmployeeSalary from './Employee/Components/EmployeeSalary/EmployeeSalary.
 import EmployeeProfile from './Employee/Components/EmployeeProfile/EmployeeProfile.jsx'
 import EmployeeSettings from './Employee/Components/EmployeeSettings/EmployeeSettings.jsx'
 import EmployeeLeve from './Employee/Components/EmployeeLeave/EmployeeLeve.jsx'
+import { ToastContainer } from 'react-toastify';
+import AdminChat from './Admin/components/AdminChat/AdminChat.jsx';
+import EmployeeChat from './Employee/Components/EmployeeChat/employeeChat.jsx';
 
 const App = () => {
   return (
     <BrowserRouter>
+      <ToastContainer position="top-center" className="text-black" autoClose={3000} />
       <Routes>
         <Route  path='/registration' element={<Registration/>}></Route>
         <Route path='/' element={<Login/>}></Route>
@@ -31,6 +37,8 @@ const App = () => {
         <Route path='/employee-dashboard/profile' element={<EmployeeProfile/>}/>
         <Route path='/employee-dashboard/settings' element={<EmployeeSettings/>}/>
         <Route path='/employee-dashboard/leaves' element={<EmployeeLeve/>}/>
+        <Route path='/employee-dashboard/chat' element={<EmployeeChat />} />
+
         
         </Route>
 
@@ -44,6 +52,8 @@ const App = () => {
         <Route path='/admin-dashboard/salary' element={<SalaryList/>}/>
         <Route path='/admin-dashboard/leave' element={<LeaveList/>}/>
         <Route path='/admin-dashboard/setting' element={<Settings/>}/>
+        <Route path='/admin-dashboard/chat' element={<AdminChat />} />
+
         </Route>     
 
 

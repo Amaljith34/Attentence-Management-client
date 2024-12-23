@@ -15,7 +15,7 @@ const LeavesTable = () => {
     setError(null);
 
     try {
-      const response = await axios.get(`http://localhost:3000/api/admin/leave-request?page=${page}&limit=${limit}`);
+      const response = await axios.get(`https://attentence-management-server.onrender.com/api/admin/leave-request?page=${page}&limit=${limit}`);
 
       const { data, pagination } = response.data;
       setLeaves(data);

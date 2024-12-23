@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const DepartmentList = () => {
   const [department, setDepartment] = useState([]);
@@ -25,7 +26,7 @@ const DepartmentList = () => {
   const fetchDepartment = async (page = 1) => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/admin/department?page=${page}&limit=8`
+        `https://attentence-management-server.onrender.com/api/admin/department?page=${page}&limit=8`
       );
       // console.log('Full Response:', response.data.data);
       setDepartment(response.data.data);
@@ -70,7 +71,7 @@ const DepartmentList = () => {
   const handlSave = async () => {
     try {
       await axios.put(
-        `http://localhost:3000/api/admin/department/${edited._id}`,
+        `https://attentence-management-server.onrender.com/api/admin/department/${edited._id}`,
         edited
       );
       setDepartment((prev) =>
@@ -78,7 +79,9 @@ const DepartmentList = () => {
           dept._id === edited._id ? { ...dept, ...edited } : dept
         )
       );
-      alert("success");
+      // alert("success");
+      toast.success("Edited success", {style: { color: 'black', fontWeight: 'bold' }});
+
       setIsModalOpen(false);
     } catch (error) {
       console.error("Error fetching department data:", error);
@@ -98,8 +101,9 @@ const DepartmentList = () => {
     const name = deleted.dept_name;
   
     try {
-      await axios.delete(`http://localhost:3000/api/admin/department/${id}`);
-      alert(`Deleted department ${name}`);
+      await axios.delete(`https://attentence-management-server.onrender.com/api/admin/department/${id}`);
+      toast.success(`Deleted department ${name}`, {style: { color: 'black', fontWeight: 'bold' }});
+
   
       // Update the department state to remove the deleted department
       setDepartment((prev) =>
