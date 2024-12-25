@@ -13,27 +13,29 @@ const LeavesTable = () => {
   const [searchQuery, setSearchQuery] = useState(""); 
   const [isModal,setIsModal]=useState(false)
   const [pending,setPending]=useState([])
+  
   const navigate=useNavigate()
   const fetchLeaves = async () => {
     setLoading(true);
     setError(null);
-
     try {
       const response = await axios.get(
         `https://attentence-management-server.onrender.com/api/admin/leave-request?page=${page}&limit=${limit}`
       );
-
       const { data, pagination } = response.data;
       setLeaves(data);
       setFilteredLeaves(data); 
       setTotalPages(pagination.totalPages);
+        const pending=data.filter(
+        (leave) => leave.status.toLowerCase() === "pending"
+      );
+      setPending(pending)
     } catch (err) {
       setError(err.response?.data?.message || "Error fetching leaves");
     } finally {
       setLoading(false);
     }
-  };
-
+  }
   useEffect(() => {
     fetchLeaves();
   }, [page]);
@@ -45,10 +47,8 @@ const LeavesTable = () => {
     const filtered = leaves.filter((leave) =>
       leave.employeeName.toLowerCase().includes(query)
     );
-  
     setFilteredLeaves(filtered);
   };
-
   const handleNextPage = () => {
     if (page < totalPages) setPage(page + 1);
   };
@@ -60,7 +60,6 @@ const LeavesTable = () => {
    navigate('/admin-dashboard/leave-request')
     // setIsModal(true)
   }
-
   return (
     <div className="container mx-auto p-4">
       <div className="text-center">
@@ -75,21 +74,18 @@ const LeavesTable = () => {
           className="p-2 border rounded shadow"
         />
         <div className="flex justify-end">
+          <div className="w-4 h-4 bg-red-500 rounded-full"></div>
           <img
             src="https://static.vecteezy.com/system/resources/previews/000/441/015/original/notification-vector-icon.jpg"
             alt="Notification"
             className="w-10"
             onClick={handleRequest}
           />
-          
         </div>
         
       </div>
-      
-      
       {loading && <p>Loading...</p>}
       {error && <p className="text-red-500">{error}</p>}
-
       {!loading && !error && (
         <>
           <table className="table-auto w-full border-collapse border-2 border-gray-400">
@@ -132,7 +128,6 @@ const LeavesTable = () => {
             </tbody>
           </table>
 
-
           <div className="flex items-center justify-between mt-4">
             <button
               onClick={handlePrevPage}
@@ -160,5 +155,4 @@ const LeavesTable = () => {
     </div>
   );
 };
-
 export default LeavesTable;

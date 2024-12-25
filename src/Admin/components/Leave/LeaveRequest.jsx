@@ -26,10 +26,13 @@ const LeaveRequest = () => {
       const { data, pagination } = response.data;
       setLeaves(data);
       setTotalPages(pagination.totalPages);
-
+      
+      
       const pending = data.filter(
         (leave) => leave.status.toLowerCase() === "pending"
       );
+      console.log(pending);
+      
       setFilteredLeaves(pending);
     } catch (err) {
       setError(err.response?.data?.message || "Error fetching leaves");
@@ -37,7 +40,10 @@ const LeaveRequest = () => {
       setLoading(false);
     }
   };
-
+  const paginatedLeaves = filteredLeaves.slice(
+    (page - 1) * limit,
+    page * limit
+  );
   useEffect(() => {
     fetchLeaves();
   }, [page]);
@@ -54,7 +60,7 @@ const LeaveRequest = () => {
   };
 
   const handleNextPage = () => {
-    if (page < totalPages) setPage(page + 1);
+    if (page <= totalPages) setPage(page + 1);
   };
 
   const handlePrevPage = () => {
@@ -69,7 +75,7 @@ const LeaveRequest = () => {
     try {
       await axios.patch(
         `https://attentence-management-server.onrender.com/api/admin/leave-request/${id}`,
-        { status: "rejected" }
+        { status: false }
       );
       toast.success("Leave rejected successfully!", {
         style: { color: "black", fontWeight: "bold" },
@@ -86,7 +92,7 @@ const LeaveRequest = () => {
     try {
       await axios.patch(
         `https://attentence-management-server.onrender.com/api/admin/leave-request/${id}`,
-        { status: "approved" }
+        { status: true }
       );
       toast.success("Leave approved successfully!", {
         style: { color: "black", fontWeight: "bold" },
@@ -99,10 +105,15 @@ const LeaveRequest = () => {
     }
   };
 
-  const paginatedLeaves = filteredLeaves.slice(
-    (page - 1) * limit,
-    page * limit
-  );
+ 
+console.log(filteredLeaves);
+console.log(totalPages);
+console.log(filteredLeaves);
+
+
+const totalpage=Math.ceil(paginatedLeaves.length/limit)
+console.log(totalpage);
+
 
   return (
     <div className="container mx-auto p-4">
@@ -147,7 +158,7 @@ const LeaveRequest = () => {
               </tr>
             </thead>
             <tbody>
-              {paginatedLeaves.map((leave, index) => (
+              {filteredLeaves.map((leave, index) => (
                 <tr
                   key={leave._id}
                   className="bg-gray-100 border-2 border-gray-400"
@@ -198,7 +209,7 @@ const LeaveRequest = () => {
               Previous
             </button>
             <span>
-              Page {page} of {Math.ceil(filteredLeaves.length / limit)}
+              Page {page} of {totalPages}
             </span>
             <button
               onClick={handleNextPage}

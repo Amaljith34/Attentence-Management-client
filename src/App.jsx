@@ -21,8 +21,9 @@ import EmployeeSettings from './Employee/Components/EmployeeSettings/EmployeeSet
 import EmployeeLeve from './Employee/Components/EmployeeLeave/EmployeeLeve.jsx'
 import { ToastContainer } from 'react-toastify';
 import LeaveRequest from './Admin/components/Leave/LeaveRequest.jsx';
-// import AdminChat from './Admin/components/AdminChat/AdminChat.jsx';
-// import EmployeeChat from './Employee/Components/EmployeeChat/employeeChat.jsx';
+import AdminChat from './Admin/components/AdminChat/AdminChat.jsx';
+import EmployeChat from './Employee/Components/EmployeeChat/EmployeChat.jsx';
+
 
 const App = () => {
   return (
@@ -38,7 +39,7 @@ const App = () => {
         <Route path='/employee-dashboard/profile' element={<EmployeeProfile/>}/>
         <Route path='/employee-dashboard/settings' element={<EmployeeSettings/>}/>
         <Route path='/employee-dashboard/leaves' element={<EmployeeLeve/>}/>
-        {/* <Route path='/employee-dashboard/chat' element={<EmployeeChat />} /> */}
+        <Route path='/employee-dashboard/chat' element={<EmployeChat />} />
 
         
         </Route>
@@ -54,14 +55,8 @@ const App = () => {
         <Route path='/admin-dashboard/leave' element={<LeaveList/>}/>
         <Route path='/admin-dashboard/leave-request' element={<LeaveRequest/>}/>
         <Route path='/admin-dashboard/setting' element={<Settings/>}/>
-        {/* <Route path='/admin-dashboard/chat' element={<AdminChat />} /> */}
-
-        </Route>     
-
-
-       
-          
-         
+        <Route path='/admin-dashboard/chat' element={<AdminChat />} />
+        </Route>      
       </Routes>
     </BrowserRouter>
 

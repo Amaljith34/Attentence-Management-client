@@ -1,53 +1,71 @@
-// import React, { useState, useEffect } from 'react';
-// import io from 'socket.io-client';
 
-// const socket = io("https://attentence-management-server.onrender.com"); // Connect to the backend server
+
+// import React, { useState, useEffect } from "react";
+// import axios from "axios";
 
 // const AdminChat = () => {
-//   const [message, setMessage] = useState("");
 //   const [messages, setMessages] = useState([]);
+//   const [message, setMessage] = useState("");
+//   const employee = localStorage.getItem("id");
+//   console.log(employee);
+ 
 
-//   useEffect(() => {
-//     // Listen for messages from the employee
-//     socket.on("employee-message", (data) => {
-//       setMessages((prevMessages) => [...prevMessages, data]);
-//     });
-
-//     return () => {
-//       socket.off("employee-message");
-//     };
-//   }, []);
-
-//   const sendMessage = (e) => {
-//     e.preventDefault();
-//     if (message.trim()) {
-//       const messageData = { text: message, time: new Date().toLocaleTimeString() };
-//       socket.emit("admin-message", messageData); // Send message to the server
-//       setMessages((prevMessages) => [...prevMessages, messageData]); // Update local chat
-//       setMessage(""); // Clear input
+//   const fetchMessages = async () => {
+//     try {
+//       const response = await axios.get(`http://localhost:3000/api/chat/${employee}`);
+//       setMessages(response.data.data);
+//     } catch (error) {
+//       console.error("Error fetching messages:", error);
 //     }
 //   };
+//   useEffect(() => {
+//     fetchMessages();
+//   }, [employee]);
+
+//   // Function to send a message
+//   const sendMessage = async () => {
+//     if (message.trim()) {
+//       try {
+//         await axios.post(`http://localhost:3000/api/chat/${employee}`,  message );
+//         setMessage(""); 
+//         fetchMessages(); 
+//       } catch (error) {
+//         console.error("Error sending message:", error);
+//       }
+//     }
+//   };
+
 //   return (
-//     <div className="chat-container p-4 border border-gray-300 rounded-lg shadow-lg">
-//       <h2 className="text-xl font-bold mb-4">Admin Chat</h2>
-//       <div className="chat-box bg-gray-50 p-4 rounded-md border overflow-y-auto mb-4" style={{ maxHeight: '400px' }}>
+//     <div style={{ padding: "20px" }}>
+//       <h2>Chat Application</h2>
+//       <div style={{ border: "1px solid black", height: "300px", overflowY: "scroll", marginBottom: "10px" }}>
 //         {messages.map((msg, index) => (
-//           <div key={index} className="chat-message mb-2">
-//             <span className="font-semibold">{msg.time}: </span>{msg.text}
+//           <div key={index}>
+//             <strong>{msg.receiverId}:</strong> {msg.message}, {msg.timestamp}
 //           </div>
 //         ))}
 //       </div>
-//       <form onSubmit={sendMessage} className="chat-form flex space-x-2">
-//         <input
-//           type="text"
-//           value={message}
-//           onChange={(e) => setMessage(e.target.value)}
-//           placeholder="Type a message..."
-//           className="p-2 border border-gray-300 rounded-md flex-grow"
-//         />
-//         <button type="submit" className="bg-blue-500 text-white p-2 rounded-md">Send</button>
-//       </form>
+//       <input
+//         type="text"
+//         value={message}
+//         onChange={(e) => setMessage(e.target.value)}
+//         placeholder="Type a message..."
+//       />
+//       <button onClick={sendMessage}>Send</button>
 //     </div>
 //   );
 // };
+
 // export default AdminChat;
+import React from 'react'
+
+const AdminChat = () => {
+  return (
+    <div>
+      <h1>chat</h1>
+    </div>
+  )
+}
+
+export default AdminChat
+
